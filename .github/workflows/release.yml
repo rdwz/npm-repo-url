@@ -1,0 +1,33 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Create source tarball
+        run: |
+          tar -c -z --owner=0 --group=0 -f source.tar.zst .
+
+      - name: Create GitHub release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: ${{ github.ref }}
+          body: 'Check the commits for details.'
+          draft: false
+          prerelease: false
+          discussion_category_name: 'Release v${{ github.ref }}'
+          files: source.tar.zst
+
+      - name: Publish to npm
+        run: npm publish --new-version "${{ github.ref }}"

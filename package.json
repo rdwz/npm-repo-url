@@ -2,6 +2,10 @@
   "name": "npm-repo-url-cli",
   "version": "0.1.0",
   "description": "`npm-repo-url-cli <pkg>` # Your npm package repository link fetcher! 📦🔦🕵️",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rdwz/npm-repo-url.git"
+  },
   "license": "ISC",
   "author": "Marc Redwerkz",
   "type": "module",
@@ -17,8 +21,8 @@
   "dependencies": {
     "@redwerkz/commander": "12.2.0-beta2"
   },
-  "packageManager": "bun@1.1.40",
   "devDependencies": {
     "@types/node": "^22.10.2"
-  }
+  },
+  "packageManager": "bun@1.1.40"
 }
