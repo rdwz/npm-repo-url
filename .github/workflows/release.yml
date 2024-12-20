@@ -16,7 +16,7 @@ jobs:
         run: |
           cp -r . /tmp/main_source \
           && tar --use-compress-program="zstd --ultra -22 -T0" -c -f "main.tar.zst" -C /tmp main_source \
-          && rm -rf /tmp/vmain_copy
+          && rm -rf /tmp/main_source
           
       - name: Create GitHub release 🏷️
         uses: actions/create-release@v1
@@ -28,8 +28,6 @@ jobs:
           body: 'Check the commits for details.'
           draft: false
           prerelease: false
-          discussion_category_name: 'Release v${{ github.ref }}'
-          files: source.tar.zst
 
       - name: Publish to npm 📦
         run: npm publish --new-version "${{ github.ref }}"
