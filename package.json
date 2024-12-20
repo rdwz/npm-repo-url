@@ -1,0 +1,24 @@
+{
+  "name": "npm-repo-url-cli",
+  "version": "0.1.0",
+  "description": "`npm-repo-url-cli <pkg>` # Your npm package repository link fetcher! 📦🔦🕵️",
+  "license": "ISC",
+  "author": "Marc Redwerkz",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "npm-repo-url": "dist/index.js"
+  },
+  "scripts": {
+    "build": "bun build src/index.ts --banner=\"#!/usr/bin/env node\" --minify --outdir=dist --packages=external",
+    "start": "bun src/index.ts",
+    "test": "bun dist/index.js"
+  },
+  "dependencies": {
+    "@redwerkz/commander": "12.2.0-beta2"
+  },
+  "packageManager": "bun@1.1.40",
+  "devDependencies": {
+    "@types/node": "^22.10.2"
+  }
+}
