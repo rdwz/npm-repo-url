@@ -14,8 +14,10 @@ jobs:
 
       - name: Create source tarball 💽
         run: |
-          tar --use-compress-program="zstd --ultra -22 -T0" -c -f "v${{ github.ref_name }}.tar.zst" .
-
+          cp -r . /tmp/main_source \
+          && tar --use-compress-program="zstd --ultra -22 -T0" -c -f "main.tar.zst" -C /tmp main_source \
+          && rm -rf /tmp/vmain_copy
+          
       - name: Create GitHub release 🏷️
         uses: actions/create-release@v1
         env:
