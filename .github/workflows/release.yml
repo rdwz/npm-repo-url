@@ -1,22 +1,22 @@
-name: Release
+name: Release & Publish 🏁
 
 on:
   push:
-    tags:
-      - "v*"
+    branches:
+      - main
 
 jobs:
   build-and-release:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Checkout code 🚚
         uses: actions/checkout@v4
 
-      - name: Create source tarball
+      - name: Create source tarball 💽
         run: |
-          tar -c -z --owner=0 --group=0 -f source.tar.zst .
+          tar --use-compress-program="zstd --ultra -22 -T0" -c -f "v${{ github.ref_name }}.tar.zst" .
 
-      - name: Create GitHub release
+      - name: Create GitHub release 🏷️
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -29,5 +29,5 @@ jobs:
           discussion_category_name: 'Release v${{ github.ref }}'
           files: source.tar.zst
 
-      - name: Publish to npm
+      - name: Publish to npm 📦
         run: npm publish --new-version "${{ github.ref }}"
