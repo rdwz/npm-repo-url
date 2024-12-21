@@ -1,6 +1,6 @@
 {
   "name": "npm-repo-url-cli",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "`npm-repo-url-cli <pkg>` # Your npm package repository link fetcher! 📦🔦🕵️",
   "repository": {
     "type": "git",
@@ -14,7 +14,7 @@
     "npm-repo-url": "dist/index.js"
   },
   "scripts": {
-    "build": "bun build src/index.ts --banner=\"#!/usr/bin/env node\" --minify --outdir=dist --packages=external",
+    "build": "bun build src/index.ts --banner=\"#!/usr/bin/env node\" --format=esm --minify --outdir=dist --packages=external",
     "release": "auto shipit",
     "start": "bun src/index.ts",
     "test": "bun dist/index.js"
