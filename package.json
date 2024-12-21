@@ -1,6 +1,6 @@
 {
   "name": "npm-repo-url-cli",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "`npm-repo-url-cli <pkg>` # Your npm package repository link fetcher! 📦🔦🕵️",
   "repository": {
     "type": "git",
@@ -22,7 +22,8 @@
     "@redwerkz/commander": "12.2.0-beta2"
   },
   "devDependencies": {
-    "@types/node": "^22.10.2"
+    "@types/node": "^22.10.2",
+    "auto": "^11.3.0"
   },
   "packageManager": "bun@1.1.40"
 }
