@@ -1,34 +1,46 @@
+import { read, save } from '../cache'
 /**
- * Format a repository URL into a nice form, removing leading "git+" and/or trailing ".git".
+ * Format a repository URL into a standard form
+ * by removing any leading "git+" and trailing ".git".
  *
  * @param {string} url - The URL to format.
- *
- * @returns {string} The formatted URL.
+ * @returns {string} - The formatted URL.
  *
  * @example
  * _fmt('git+https://github.com/rdwz/npm-repo-url.git') => 'https://github.com/rdwz/npm-repo-url'
- * _fmt('https://github.com/rdwz/npm-repo-url.git') => 'https://github.com/rdwz/npm-repo-url'
  */
-const _fmt = (url: string): string => url.replace(/^git\+/, '').replace(/\.git$/, '');
+const _fmt = (url: string): string =>
+	url.replace(/^git\+/, '').replace(/\.git$/, '')
 
-/**
- * Fetches the repository URL for a given npm package name.
- * @param {string} pkgName - The name of the package.
- * @returns {Promise<string|null>} The repository URL, or null if not found.
- * @throws {Error} If there is an error fetching data.
- */
-async function fetchPkg(pkgName: string): Promise<string | null> {
-	try {
-		const res = await (
-			await fetch(`https://registry.npmjs.org/${pkgName}`)
-		).json()
-		if (res.repository?.url) {
-			return _fmt(res.repository?.url)
-		}
-		return null
-	} catch (error) {
-		throw new Error(`Error fetching data for ${pkgName}: ${error.message}`)
+async function fetchPkg(
+	pkgName: string,
+	{ verbose }: { verbose: boolean } = { verbose: true }
+): Promise<string | null> {
+	const cache = read()
+	const cachedUrl = cache.get(pkgName)
+	if (cachedUrl) {
+		if (verbose) console.info(`Cache hit for ${pkgName}`)
+		return cachedUrl ?? Promise.resolve(null)
 	}
+
+	const promise = fetch(`https://registry.npmjs.org/${pkgName}`)
+		.then(async (response) => {
+			if (!response.ok) {
+				throw new Error(`Failed to fetch data for ${pkgName}`)
+			}
+
+			const { repository } = await response.json()
+			const url = repository?.url ? _fmt(repository.url) : null
+			cache.set(pkgName, url)
+			save(cache)
+
+			return url
+		})
+		.catch((error) => {
+			throw new Error(`Error fetching data for ${pkgName}: ${error.message}`)
+		})
+
+	return promise
 }
 
 export { fetchPkg }

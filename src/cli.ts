@@ -4,24 +4,24 @@ import { fetchPkg } from './pkg'
 
 program
 	.name(`${color.m('npm-repo-url')}`)
-	.version('1.0.0')
+	.version(require('../package.json').version)
 	.description('CLI tool to get repo URL from npm package name')
 	.argument('<pkg>', 'npm package name')
 	.option('-q, --quiet', 'Suppress output')
 	.option('-v, --verbose', 'Enable verbose mode')
 	.action(async (pkg, options) => {
 		try {
-			const url: Promise<string | null> = fetchPkg(pkg)
+			const url: Promise<string | null> = fetchPkg(pkg, options)
 			const res = await url
 			if (res) {
 				if (options.verbose) {
-					console.log(`Repository URL for ${pkg}: ${res}`)
+					console.info(`Repository URL for ${pkg}: ${res}`)
 				} else {
-					console.log(res)
+					console.info(res)
 				}
 			} else {
 				if (!options.quiet) {
-					console.log(`Repository URL for ${pkg} not found.`)
+					console.warn(`Repository URL for ${pkg} not found.`)
 				}
 			}
 		} catch (error) {
