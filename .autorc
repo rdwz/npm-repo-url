@@ -1,0 +1,10 @@
+{
+  "plugins": [
+    "git-tag"
+  ],
+  "owner": "rdwz",
+  "repo": "npm-repo-url",
+  "name": "Marc Redwerkz",
+  "email": "redwerkz@gmail.com",
+  "onlyPublishWithReleaseLabel": false
+}
