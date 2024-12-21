@@ -4,7 +4,7 @@
 [![License](https://img.shields.io/badge/License-ISC-33cc66.svg?style=for-the-badge)](https://opensource.org/licenses/ISC)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-ff33cc.svg?style=for-the-badge)](https://makeapullrequest.com)
 
-Discover Repos Instantly! `npm-repo-url-cli <pkg>` # Your npm package repository link fetcher! 📦🔦🕵️
+Discover Repos Instantly! Your npm package repository link fetcher! 📦🔦🕵️
 
 ## Usage
 
