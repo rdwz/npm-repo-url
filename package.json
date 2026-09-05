@@ -30,7 +30,7 @@
     "@types/node": "^22.10.2",
     "auto": "^11.3.0"
   },
-  "packageManager": "bun@1.1.40",
+  "packageManager": "bun@1.4.2",
   "auto": {
     "plugins": [
       "git-tag",
